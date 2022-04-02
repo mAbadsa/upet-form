@@ -1,1 +1,5 @@
 node_modules
+client/.storybook
+client/src/components/**/**.stories.tsx
+client/src/stories/*
+.env
