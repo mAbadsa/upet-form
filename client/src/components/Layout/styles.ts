@@ -1,4 +1,4 @@
-import { styled, Theme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Container from "@mui/material/Container";
 
 const PREFIX = "StyledLayout";
