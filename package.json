@@ -14,8 +14,7 @@
   "scripts": {
     "start": "NODE_ENV=production node dist/js/index.js",
     "dev": "NODE_ENV=development concurrently \"tsc -w\" \"nodemon dist/js/index.js\"",
-    "client": "cd client && npm start",
-    "heroku-postbuild": "cd client && npm install && npm run build",
+    "heroku-postbuild": "yarn install && cd .. && cd client && npm install && npm run build",
     "test:unit": "ENV_FILE=./config/.env.test jest"
   },
   "keywords": [],
