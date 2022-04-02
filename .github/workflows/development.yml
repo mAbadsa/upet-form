@@ -23,5 +23,5 @@ jobs:
         with:
           args: deploy --dir=build --prod
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: 'upet-form'
+          heroku_app_name: 'upet-form-develop'
           heroku_email: 'moh22389@gmail.com'
