@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios, { AxiosResponse } from "axios";
+
 import Alert from "@mui/material/Alert";
 
 import Form from "../../components/Form";
@@ -30,7 +31,7 @@ const Register: FC = () => {
   };
   return (
     <div>
-      <Alert severity="error">{error}</Alert>
+      {error && <Alert severity="error">{error}</Alert>}
       <Form onFinish={onFinish} isLoading={loading} />
     </div>
   );
