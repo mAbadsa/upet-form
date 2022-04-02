@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { styled } from "@mui/material/styles";
 import MUITextField from "@mui/material/TextField";
+import FormHelperText from "@mui/material/FormHelperText";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -68,7 +69,7 @@ const Form: FC<formPropsType> = ({
       password: Yup.string()
         .matches(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
-          "At least one lowercase characters, one uppercase characters and one number"
+          "Oops! You need a password longer than 8 characters with numbers and letters."
         )
         .min(8, "Password must be at least 8 characters")
         .required("This field is required"),
@@ -132,7 +133,7 @@ const Form: FC<formPropsType> = ({
           error={!!formik.touched.firstName && !!formik.errors.firstName}
           helperText={
             formik.touched.firstName && formik.errors.firstName ? (
-              <div>{formik.errors.firstName}</div>
+              <span>{formik.errors.firstName}</span>
             ) : null
           }
         />
@@ -152,7 +153,7 @@ const Form: FC<formPropsType> = ({
           error={!!formik.touched.lastName && !!formik.errors.lastName}
           helperText={
             formik.touched.lastName && formik.errors.lastName ? (
-              <div>{formik.errors.lastName}</div>
+              <span>{formik.errors.lastName}</span>
             ) : null
           }
         />
@@ -188,9 +189,11 @@ const Form: FC<formPropsType> = ({
           error={!!formik.touched.phoneNumber && !!formik.errors.phoneNumber}
         />
       </Box>
-      {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-        <div>{formik.errors.phoneNumber}</div>
-      ) : null}
+      <FormHelperText
+        sx={{ color: "#FF0000", fontSize: "12px" }}
+        children={formik.errors.phoneNumber}
+        error={!!formik.touched.phoneNumber && !!formik.errors.phoneNumber}
+      />
       {/* <TextField
         type="phone"
         name="phoneNumber"
@@ -228,7 +231,7 @@ const Form: FC<formPropsType> = ({
         error={!!formik.touched.email && !!formik.errors.email}
         helperText={
           formik.touched.email && formik.errors.email ? (
-            <div>{formik.errors.email}</div>
+            <span>{formik.errors.email}</span>
           ) : null
         }
       />
@@ -245,7 +248,7 @@ const Form: FC<formPropsType> = ({
         error={!!formik.touched.password && !!formik.errors.password}
         helperText={
           formik.touched.password && formik.errors.password ? (
-            <div>{formik.errors.password}</div>
+            <span>{formik.errors.password}</span>
           ) : null
         }
       />

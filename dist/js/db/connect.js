@@ -43,30 +43,27 @@ var connectDB = function () { return __awaiter(void 0, void 0, void 0, function 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 5, , 6]);
+                _a.trys.push([0, 3, , 4]);
                 mongo_uri = process.env.MONGO_DB;
                 console.log({ mongo_uri: mongo_uri });
-                if (!(process.env.NODE_ENV === "production")) return [3 /*break*/, 2];
+                if (!(process.env.NODE_ENV === "development")) return [3 /*break*/, 2];
                 return [4 /*yield*/, (0, mongoose_1.connect)(mongo_uri)];
             case 1:
                 _a.sent();
                 _a.label = 2;
             case 2:
-                if (!(process.env.NODE_ENV === "development")) return [3 /*break*/, 4];
-                return [4 /*yield*/, (0, mongoose_1.connect)("mongodb://localhost:27017/upet")];
-            case 3:
-                _a.sent();
-                _a.label = 4;
-            case 4:
+                // if (process.env.NODE_ENV === "development") {
+                //   await connect("mongodb://localhost:27017/upet");
+                // }
                 // await connect("mongodb://localhost:27017/upet");
                 console.log("MongoDB connected!");
-                return [3 /*break*/, 6];
-            case 5:
+                return [3 /*break*/, 4];
+            case 3:
                 error_1 = _a.sent();
                 console.error("db:config::", error_1.message);
                 process.exit(1);
-                return [3 /*break*/, 6];
-            case 6: return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
