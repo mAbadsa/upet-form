@@ -11,8 +11,6 @@ const signupValidation = async (
   try {
     const { firstName, lastName, phoneNumber, email, password } = req.body;
 
-    console.log({ firstName, lastName, phoneNumber, email, password });
-
     const signupSchema = Yup.object().shape({
       firstName: Yup.string()
         .matches(/^([A-Z]{1})([a-z]*)$/, {
@@ -41,7 +39,7 @@ const signupValidation = async (
         .min(8, "Password must be at least 8 characters")
         .required("This field is required"),
     });
-    console.log("first");
+
     await signupSchema.validate(
       {
         firstName,
@@ -54,11 +52,9 @@ const signupValidation = async (
         abortEarly: false,
       }
     );
-    console.log("first");
 
     return next();
   } catch (error: any) {
-    console.log({ error });
     next(boomify(400, error.errors[0]));
   }
 };
