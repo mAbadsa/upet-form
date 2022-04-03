@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        mongodb-version: [3.6, 4.0, 4.2]
+        mongodb-version: [3.6]
     env:
       MONGO_DB: mongodb+srv://mAbadsa:mAbadsa@cluster0.inept.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
@@ -27,7 +27,7 @@ jobs:
           mongodb-version: ${{ matrix.mongodb-version }}
       - run: yarn run project-setup
       - run: yarn run test:unit
-      - run: yarn run run-both
+      # - run: yarn run run-both
       # - run: cd client
       # - run: yarn install
       # - run: yarn run build --if-present
