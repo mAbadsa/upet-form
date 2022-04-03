@@ -35,19 +35,94 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var supertest_1 = __importDefault(require("supertest"));
+var mongoose_1 = __importDefault(require("mongoose"));
+var app_1 = __importDefault(require("../../app"));
+var User_1 = __importDefault(require("../../models/User"));
 describe("auth", function () {
-    it("should resolve with true and valid userId for hardcoded token", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var response;
+    jest.setTimeout(30000);
+    var mongoClient;
+    beforeAll(function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
-            response = 1 + 1;
-            expect(response).toEqual(2);
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, mongoose_1.default.connect(process.env.MONGO_DB)];
+                case 1:
+                    mongoClient = _a.sent();
+                    return [2 /*return*/];
+            }
         });
     }); });
-    // it("should resolve with false for invalid token", async () => {
-    //   const response = await user.auth("invalidToken");
-    //   expect(response).toEqual({
-    //     error: { type: "unauthorized", message: "Authentication Failed" },
-    //   });
-    // });
+    it("Create new user with invalid input, Must return statusCode 400", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var res;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, supertest_1.default)(app_1.default)
+                        .post("/api/v1/signup")
+                        .expect(400)
+                        .expect("Content-Type", /json/)
+                        .send({
+                        firstName: "juan",
+                        lastName: "perez",
+                        numberPhone: "123 985-6587",
+                        email: "juan@gmail.com",
+                        password: "123456Juan",
+                    })];
+                case 1:
+                    res = _a.sent();
+                    expect(res.body.success).toBe(false);
+                    expect(res.body.message).toBe("First Name Must be capitalized");
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it("Create new user with valid input, Must return statusCode 201", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var res;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, (0, supertest_1.default)(app_1.default)
+                        .post("/api/v1/signup")
+                        .expect(201)
+                        .expect("Content-Type", /json/)
+                        .send({
+                        firstName: "Juan",
+                        lastName: "Perez",
+                        phoneNumber: "123 985-6587",
+                        email: "juan@gmail.com",
+                        password: "123456Juan",
+                    })];
+                case 1:
+                    res = _a.sent();
+                    expect(res.body.success).toBe(true);
+                    expect(res.body.message).toBe("Signed up successfully");
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it("Delete existed user", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, User_1.default.findOneAndDelete({ email: "juan@gmail.com" })];
+                case 1:
+                    result = _a.sent();
+                    expect(result).toBeDefined();
+                    expect(result).toBeTruthy();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    afterAll(function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, mongoClient.connection.close()];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
 });

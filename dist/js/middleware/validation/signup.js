@@ -68,7 +68,6 @@ var signupValidation = function (req, res, next) { return __awaiter(void 0, void
             case 0:
                 _b.trys.push([0, 2, , 3]);
                 _a = req.body, firstName = _a.firstName, lastName = _a.lastName, phoneNumber = _a.phoneNumber, email = _a.email, password = _a.password;
-                console.log({ firstName: firstName, lastName: lastName, phoneNumber: phoneNumber, email: email, password: password });
                 signupSchema = Yup.object().shape({
                     firstName: Yup.string()
                         .matches(/^([A-Z]{1})([a-z]*)$/, {
@@ -87,6 +86,9 @@ var signupValidation = function (req, res, next) { return __awaiter(void 0, void
                         .required("This field is required"),
                     email: Yup.string()
                         .email("Invalid email address")
+                        .matches(/^([a-z])[a-zA-Z\d\.\-_]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, {
+                        message: "valid email must start with small letter",
+                    })
                         .required("This field is required"),
                     password: Yup.string()
                         .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/, {
@@ -95,7 +97,6 @@ var signupValidation = function (req, res, next) { return __awaiter(void 0, void
                         .min(8, "Password must be at least 8 characters")
                         .required("This field is required"),
                 });
-                console.log("first");
                 return [4 /*yield*/, signupSchema.validate({
                         firstName: firstName,
                         lastName: lastName,
@@ -107,11 +108,9 @@ var signupValidation = function (req, res, next) { return __awaiter(void 0, void
                     })];
             case 1:
                 _b.sent();
-                console.log("first");
                 return [2 /*return*/, next()];
             case 2:
                 error_1 = _b.sent();
-                console.log({ error: error_1 });
                 next((0, utils_1.boomify)(400, error_1.errors[0]));
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
