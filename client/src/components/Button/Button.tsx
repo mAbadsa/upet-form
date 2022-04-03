@@ -19,6 +19,7 @@ const Button: FC<{
   sx?: SxProps<Theme> | undefined;
   arialabel?: string;
   disableElevation?: boolean;
+  disabled?: boolean;
   withIcon?: boolean | undefined;
   fullWidth: boolean;
   onClick?: (evt: any) => void;
@@ -33,6 +34,7 @@ const Button: FC<{
   arialabel,
   fullWidth = false,
   disableElevation = false,
+  disabled = false,
   onClick,
   ...props
 }): ReactElement<any, any> | null => {
@@ -47,6 +49,7 @@ const Button: FC<{
       aria-label={arialabel}
       fullWidth={fullWidth}
       onClick={onClick}
+      disabled={disabled}
       {...props}
     >
       {children}

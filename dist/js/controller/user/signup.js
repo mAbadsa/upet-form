@@ -49,7 +49,7 @@ var signup = function (req, res, next) { return __awaiter(void 0, void 0, void 0
                 _a = req.body, firstName = _a.firstName, lastName = _a.lastName, phoneNumber = _a.phoneNumber, email = _a.email, password = _a.password;
                 _b.label = 1;
             case 1:
-                _b.trys.push([1, 5, , 6]);
+                _b.trys.push([1, 4, , 5]);
                 return [4 /*yield*/, User_1.default.findOne({ email: email })];
             case 2:
                 user = _b.sent();
@@ -65,10 +65,8 @@ var signup = function (req, res, next) { return __awaiter(void 0, void 0, void 0
                     password: password,
                 });
                 return [4 /*yield*/, user.save()];
-            case 3: return [4 /*yield*/, _b.sent()];
-            case 4:
+            case 3:
                 _user = _b.sent();
-                console.log(_user);
                 return [2 /*return*/, res.status(201).json({
                         success: true,
                         statusCode: 201,
@@ -81,11 +79,11 @@ var signup = function (req, res, next) { return __awaiter(void 0, void 0, void 0
                             email: _user.email,
                         },
                     })];
-            case 5:
+            case 4:
                 error_1 = _b.sent();
                 next(error_1);
-                return [3 /*break*/, 6];
-            case 6: return [2 /*return*/];
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); };

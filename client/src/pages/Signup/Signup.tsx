@@ -17,7 +17,6 @@ const Register: FC = () => {
       setLoading(true);
       setError("");
       const res: AxiosResponse = await Axios.post("/api/v1/signup", userData);
-      console.log({ res });
       setLoading(false);
       navigate("/dashboard", {
         state: {

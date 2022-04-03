@@ -1,4 +1,11 @@
-import { ChangeEvent, FC, FocusEvent, ReactElement } from "react";
+import {
+  useEffect,
+  useState,
+  ChangeEvent,
+  FC,
+  FocusEvent,
+  ReactElement,
+} from "react";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -11,7 +18,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "../TextField";
 import Button from "../Button";
 import StyledForm, { classes } from "./styles";
-import { formPropsType } from "../../type";
+import { formPropsType, userDataType } from "../../type";
 
 const InputContainer = styled("div")({
   display: "flex",
@@ -42,13 +49,23 @@ const Form: FC<formPropsType> = ({
   //   password: "",
   // });
 
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
+      firstName,
+      lastName,
       phoneNumber: "",
       email: "",
       password: "",
+    },
+    initialErrors: {
+      email: "This field is required",
+      firstName: "This field is required",
+      lastName: "This field is required",
+      password: "This field is required",
+      phoneNumber: "This field is required",
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
@@ -65,6 +82,9 @@ const Form: FC<formPropsType> = ({
         .required("This field is required"),
       email: Yup.string()
         .email("Invalid email address")
+        .matches(/^([a-z])[a-zA-Z\d\.\-_]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, {
+          message: "Valid email must start with small letter",
+        })
         .required("This field is required"),
       password: Yup.string()
         .matches(
@@ -74,8 +94,7 @@ const Form: FC<formPropsType> = ({
         .min(8, "Password must be at least 8 characters")
         .required("This field is required"),
     }),
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: (values: userDataType) => {
       onFinish(values);
     },
   });
@@ -89,30 +108,63 @@ const Form: FC<formPropsType> = ({
 
   const handleClick = (event: ChangeEvent<MouseEvent>) => {
     formik.handleSubmit();
-    // check if the first letter is capitalize or not
-    console.log(formik.values);
   };
 
   const handleBlur = (
     event: FocusEvent<HTMLInputElement | HTMLTextAreaElement | Element>
   ) => {
-    console.log(formik.values["firstName"]);
-    console.log(formik.values["lastName"]);
-    if (!formik.values["firstName"] || !formik.values["lastName"]) return;
-    if (!formik.values["firstName"][0].match(/[A-Z]/)) {
-      formik.values["firstName"] =
-        formik.values["firstName"]["substring"](0, 1)["toUpperCase"]() +
-        formik.values["firstName"]["substring"](1);
+    // if (!formik.values["firstName"] || !formik.values["lastName"]) return;
+    // // check if the first letter is capitalize or not
+    // if (!formik.values["firstName"][0].match(/[A-Z]/)) {
+    //   formik.values["firstName"] =
+    //     formik.values["firstName"]["substring"](0, 1)["toUpperCase"]() +
+    //     formik.values["firstName"]["substring"](1);
+    // }
+    // // check if the first letter is capitalize or not
+    // if (!formik.values["lastName"][0].match(/[A-Z]/)) {
+    //   formik.values["lastName"] =
+    //     formik.values["lastName"]["substring"](0, 1)["toUpperCase"]() +
+    //     formik.values["lastName"]["substring"](1);
+    // }
+  };
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    formik.handleChange(event);
+    if (event.target.name === "firstName") {
+      setFirstName(event.target.value);
     }
 
-    if (!formik.values["lastName"][0].match(/[A-Z]/)) {
-      console.log(formik.values["lastName"]);
+    if (event.target.name === "lastName") {
+      setLastName(event.target.value);
+    }
 
-      formik.values["lastName"] =
-        formik.values["lastName"]["substring"](0, 1)["toUpperCase"]() +
-        formik.values["lastName"]["substring"](1);
+    // check if the first letter is capitalize or not
+    if (firstName) {
+      if (!firstName[0].match(/[A-Z]/)) {
+        setFirstName(
+          (prevValue) =>
+            prevValue["substring"](0, 1)["toUpperCase"]() +
+            prevValue["substring"](1)
+        );
+      }
+    }
+
+    // check if the first letter is capitalize or not
+    if (lastName) {
+      if (!lastName[0].match(/[A-Z]/)) {
+        setLastName(
+          (prevValue) =>
+            prevValue["substring"](0, 1)["toUpperCase"]() +
+            prevValue["substring"](1)
+        );
+      }
     }
   };
+
+  useEffect(() => {
+    setFirstName(firstName);
+    setLastName(lastName);
+  }, [firstName, lastName]);
 
   return (
     <StyledForm className={`${classes.root}`} onSubmit={formik.handleSubmit}>
@@ -121,8 +173,8 @@ const Form: FC<formPropsType> = ({
           type="text"
           name="firstName"
           id="firstName"
-          value={formik.values.firstName}
-          onChange={formik.handleChange}
+          value={firstName}
+          onChange={handleChange}
           onBlur={handleBlur}
           label="First name"
           variant="filled"
@@ -130,9 +182,9 @@ const Form: FC<formPropsType> = ({
           sx={{
             width: 0.48,
           }}
-          error={!!formik.touched.firstName && !!formik.errors.firstName}
+          error={formik.touched.firstName && Boolean(formik.errors.firstName)}
           helperText={
-            formik.touched.firstName && formik.errors.firstName ? (
+            formik.touched.firstName && Boolean(formik.errors.firstName) ? (
               <span>{formik.errors.firstName}</span>
             ) : null
           }
@@ -141,18 +193,18 @@ const Form: FC<formPropsType> = ({
           type="text"
           name="lastName"
           id="lastName"
-          onChange={formik.handleChange}
+          onChange={handleChange}
           onBlur={handleBlur}
-          value={formik.values.lastName}
+          value={lastName}
           label="Last name"
           variant="filled"
           size="small"
           sx={{
             width: 0.48,
           }}
-          error={!!formik.touched.lastName && !!formik.errors.lastName}
+          error={formik.touched.lastName && Boolean(formik.errors.lastName)}
           helperText={
-            formik.touched.lastName && formik.errors.lastName ? (
+            formik.touched.lastName && Boolean(formik.errors.lastName) ? (
               <span>{formik.errors.lastName}</span>
             ) : null
           }
@@ -163,7 +215,11 @@ const Form: FC<formPropsType> = ({
           display: "flex",
           alignItems: "center",
           border: 1,
-          borderColor: "primary.light",
+          borderColor: `${
+            formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)
+              ? "#FF0000"
+              : "primary.light"
+          }`,
           borderRadius: 1 / 2,
           my: 2,
         }}
@@ -180,19 +236,25 @@ const Form: FC<formPropsType> = ({
           type="phone"
           name="phoneNumber"
           id="phoneNumber"
-          onChange={formik.handleChange}
+          onChange={handleChange}
           value={formik.values.phoneNumber}
           label="Phone number"
           variant="filled"
           size="small"
           fullWidth
-          error={!!formik.touched.phoneNumber && !!formik.errors.phoneNumber}
+          error={
+            formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)
+          }
         />
       </Box>
       <FormHelperText
         sx={{ color: "#FF0000", fontSize: "12px" }}
-        children={formik.errors.phoneNumber}
-        error={!!formik.touched.phoneNumber && !!formik.errors.phoneNumber}
+        children={
+          formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber) ? (
+            <span>formik.errors.phoneNumber</span>
+          ) : null
+        }
+        error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
       />
       {/* <TextField
         type="phone"
@@ -222,15 +284,15 @@ const Form: FC<formPropsType> = ({
         type="email"
         name="email"
         id="email"
-        onChange={formik.handleChange}
+        onChange={handleChange}
         value={formik.values.email}
         label="Email"
         variant="filled"
         size="small"
         fullWidth
-        error={!!formik.touched.email && !!formik.errors.email}
+        error={formik.touched.email && Boolean(formik.errors.email)}
         helperText={
-          formik.touched.email && formik.errors.email ? (
+          formik.touched.email && Boolean(formik.errors.email) ? (
             <span>{formik.errors.email}</span>
           ) : null
         }
@@ -239,15 +301,15 @@ const Form: FC<formPropsType> = ({
         type="password"
         name="password"
         id="password"
-        onChange={formik.handleChange}
+        onChange={handleChange}
         value={formik.values.password}
         label="Password"
         variant="filled"
         size="small"
         fullWidth
-        error={!!formik.touched.password && !!formik.errors.password}
+        error={formik.touched.password && Boolean(formik.errors.password)}
         helperText={
-          formik.touched.password && formik.errors.password ? (
+          formik.touched.password && Boolean(formik.errors.password) ? (
             <span>{formik.errors.password}</span>
           ) : null
         }
@@ -259,6 +321,7 @@ const Form: FC<formPropsType> = ({
         sx={{ mt: 4, height: 55 }}
         disableElevation
         onClick={handleClick}
+        disabled={Object.keys(formik.errors).length > 0}
       >
         {isLoading ? (
           <CircularProgress

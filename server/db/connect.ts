@@ -12,8 +12,6 @@ const connectDB = async (): Promise<void> => {
     if (process.env.NODE_ENV === "development") {
       await connect("mongodb://localhost:27017/upet");
     }
-
-    console.log("MongoDB connected!");
   } catch (error: any) {
     console.error("db:config::", error.message);
     process.exit(1);

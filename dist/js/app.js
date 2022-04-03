@@ -50,11 +50,8 @@ var middleware = [
 app.use(middleware);
 app.use("/api/v1", router_1.default);
 if (process.env.NODE_ENV === "production") {
-    console.log("Out");
     app.use(express_1.default.static((0, path_1.join)(__dirname, "..", "..", "client", "build")));
-    console.log((0, path_1.join)(__dirname, "..", "..", "client", "build"));
     app.get("*", function (req, res) {
-        console.log(__dirname, "..", "..", "client", "build", "index.html");
         res.sendFile((0, path_1.join)(__dirname, "..", "..", "client", "build", "index.html"));
     });
 }

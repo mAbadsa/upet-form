@@ -30,6 +30,9 @@ const signupValidation = async (
         .required("This field is required"),
       email: Yup.string()
         .email("Invalid email address")
+        .matches(/^([a-z])[a-zA-Z\d\.\-_]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, {
+          message: "valid email must start with small letter",
+        })
         .required("This field is required"),
       password: Yup.string()
         .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/, {
