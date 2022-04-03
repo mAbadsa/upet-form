@@ -82,7 +82,7 @@ const Form: FC<formPropsType> = ({
         .required("This field is required"),
       email: Yup.string()
         .email("Invalid email address")
-        .matches(/^([a-z])[a-zA-Z\d\.\-_]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, {
+        .matches(/^([a-z])[a-zA-Z\d.\-_]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, {
           message: "Valid email must start with small letter",
         })
         .required("This field is required"),
