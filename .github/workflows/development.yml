@@ -17,6 +17,7 @@ jobs:
         with:
           node-version: 14.x
       - run: yarn heroku-postbuild
+      - run: yarn run test:unit
       # - run: cd client
       # - run: yarn install
       # - run: yarn run build --if-present
