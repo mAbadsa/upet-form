@@ -4,7 +4,6 @@ const theme = createTheme({
   palette: {
     primary: {
       main: "#67ecd0",
-      dark: "#000000",
       contrastText: "#F9F9F9",
       light: "#C7C7C7",
     },
@@ -24,35 +23,16 @@ const theme = createTheme({
   },
   spacing: 4,
   components: {
-    MuiButtonBase: {
-      styleOverrides: {
-        root: {},
-      },
-    },
     MuiInputBase: {
       styleOverrides: {
         root: {
           MuiFilledInput: {
             styleOverrides: {
               root: {
-                // borderBottom: "none",
                 "&:hover": {
                   backgroundColor: "#f9f9f9",
                   borderBottom: "none",
                 },
-                "&:before": {
-                  // borderBottom: "none",
-                },
-                // "&:hover:not('.Mui-disabled'):before": {
-                //   borderBottom: "none !important",
-                //   backgroundColor: "#000",
-                //   "&:not('.Mui-disabled')": {
-                //     "&:before": {
-                //       backgroundColor: "#000",
-                //       borderBottom: "none",
-                //     },
-                //   },
-                // },
               },
             },
           },

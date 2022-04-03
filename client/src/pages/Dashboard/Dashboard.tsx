@@ -26,7 +26,7 @@ const Title = styled("div")(({ theme }) => ({
   justifyContent: "center",
   alignItems: "start",
   padding: theme.spacing(4),
-  color: theme.palette.primary.dark,
+  color: "#000000",
 }));
 
 const Dashboard: FC = () => {

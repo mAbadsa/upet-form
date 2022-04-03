@@ -113,6 +113,8 @@ const Form: FC<formPropsType> = ({
   const handleBlur = (
     event: FocusEvent<HTMLInputElement | HTMLTextAreaElement | Element>
   ) => {
+    formik.handleBlur(event);
+
     // if (!formik.values["firstName"] || !formik.values["lastName"]) return;
     // // check if the first letter is capitalize or not
     // if (!formik.values["firstName"][0].match(/[A-Z]/)) {
@@ -236,8 +238,9 @@ const Form: FC<formPropsType> = ({
           type="phone"
           name="phoneNumber"
           id="phoneNumber"
-          onChange={handleChange}
           value={formik.values.phoneNumber}
+          onChange={handleChange}
+          onBlur={handleBlur}
           label="Phone number"
           variant="filled"
           size="small"
@@ -251,7 +254,7 @@ const Form: FC<formPropsType> = ({
         sx={{ color: "#FF0000", fontSize: "12px" }}
         children={
           formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber) ? (
-            <span>formik.errors.phoneNumber</span>
+            <span>{formik.errors.phoneNumber}</span>
           ) : null
         }
         error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
@@ -284,8 +287,9 @@ const Form: FC<formPropsType> = ({
         type="email"
         name="email"
         id="email"
-        onChange={handleChange}
         value={formik.values.email}
+        onChange={handleChange}
+        onBlur={handleBlur}
         label="Email"
         variant="filled"
         size="small"
@@ -301,8 +305,9 @@ const Form: FC<formPropsType> = ({
         type="password"
         name="password"
         id="password"
-        onChange={handleChange}
         value={formik.values.password}
+        onChange={handleChange}
+        onBlur={handleBlur}
         label="Password"
         variant="filled"
         size="small"
@@ -327,6 +332,9 @@ const Form: FC<formPropsType> = ({
           <CircularProgress
             sx={{
               color: "#F5F5F5",
+              "&:hover": {
+                backgroundColor: "#000000C7",
+              },
             }}
           />
         ) : (

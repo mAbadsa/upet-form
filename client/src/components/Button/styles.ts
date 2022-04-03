@@ -5,17 +5,13 @@ const PREFIX = "StyledButton";
 
 export const classes = {
   withButton: `${PREFIX}-withButton`,
+  root: `${PREFIX}-root`,
 };
 
 const StyledButton = styled(MUIButton)(({ theme }) => ({
-  [`&.${classes.withButton}`]: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+  [`&.${classes.root}`]: {
     "&:hover": {
-      "& svg": {
-        fill: "#323ebe",
-      },
+      backgroundColor: "#000000C7",
     },
   },
 }));
