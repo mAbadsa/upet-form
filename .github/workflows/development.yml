@@ -11,6 +11,9 @@ jobs:
     strategy:
       matrix:
         mongodb-version: [3.6]
+    env:
+      MONGO_DB: mongodb+srv://mAbadsa:mAbadsa@cluster0.inept.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
     steps:
       - name: Development Code
         uses: actions/checkout@v2
