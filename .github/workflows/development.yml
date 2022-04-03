@@ -8,6 +8,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mongodb-version: [3.6, 4.0, 4.2]
+    env:
+      MONGO_DB: mongodb+srv://mAbadsa:mAbadsa@cluster0.inept.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
     steps:
       - name: Development Code
@@ -16,6 +21,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
+      - name: Start MongoDB v${{ matrix.mongodb-version }}
+        uses: supercharge/mongodb-github-action@1.2.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
       - run: yarn run project-setup
       - run: yarn run test:unit
       - run: yarn run run-both
