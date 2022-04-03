@@ -16,8 +16,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
-      - run: yarn heroku-postbuild
+      - run: yarn run project-setup
       - run: yarn run test:unit
+      - run: yarn run run-both
       # - run: cd client
       # - run: yarn install
       # - run: yarn run build --if-present
