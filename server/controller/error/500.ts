@@ -9,7 +9,7 @@ const serverError = (
   next: NextFunction
 ) => {
   // eslint-disable-next-line no-console
-  if (process.env.NODE_ENV !== "production") console.log(error);
+  if (process.env.NODE_ENV !== "development") console.log(error);
   return res.status(error.status || 500).json({
     success: false,
     message: error.message || "Internal Server Error",

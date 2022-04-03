@@ -24,8 +24,7 @@ const signup = async (
       password,
     });
 
-    const _user = await await user.save();
-    console.log(_user);
+    const _user = await user.save();
 
     return res.status(201).json({
       success: true,
