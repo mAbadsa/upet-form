@@ -24,12 +24,12 @@ yarn run project-setup
   **Connect to cloud mongoDB**
     - [Get Started with Atlas](https://www.mongodb.com/docs/atlas/getting-started/#get-started-with-atlas)
 
-2. Open your terminal, `run mongo`:
-  - run use <YOU_DATABASE_NAME>
+2. Open your terminal, run `mongo`:
+  - run use <YOUR_DATABASE_NAME>
 3. Install ORM, we will use mongoose
    - [react mongoose document to connect to the local mongoDB](https://mongoosejs.com/docs/connections.html)
      local server`mongoose.connect('mongodb://localhost:27017/myapp');`
-     could server **use your database url from your atlas account `mongoose.connect('mongodb://username:password@host:port/database?options...')`;
+     could server **use your database url from your atlas account** `mongoose.connect('mongodb://username:password@host:port/database?options...')`;
 
 
 **4. Environment variables:🔑**
@@ -45,5 +45,5 @@ In the main directory
 yarn run run-both
 ```
 
-Now the app should be running at [http://localhost:3000](http://localhost:3000)
+Now the app should be running at [http://localhost:8080](http://localhost:8080)
 
