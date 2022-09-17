@@ -1,1 +1,1 @@
-web: yarn install && cd client && yarn install && yarn run build && yarn run run-both
+web: npm install && cd client && npm install && npm run build && npm run run-both

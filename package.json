@@ -11,11 +11,11 @@
   "scripts": {
     "start": "NODE_ENV=production node dist/js/index.js",
     "dev": "NODE_ENV=development concurrently \"tsc -w\" \"nodemon dist/js/index.js\"",
-    "client": "cd client && yarn start",
-    "project-setup": "yarn install && cd client && yarn install",
-    "heroku-postbuild": "yarn install && cd client && yarn install && yarn run build",
+    "client": "cd client && npm start",
+    "project-setup": "npm install && cd client && npm install",
+    "heroku-postbuild": "npm install && cd client && npm install && npm run build",
     "test:unit": "ENV_FILE=./config/.env.test jest",
-    "run-both":"yarn start && yarn run client"
+    "run-both":"npm start && npm run client"
   },
   "keywords": [],
   "license": "ISC",
