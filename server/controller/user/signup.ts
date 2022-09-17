@@ -12,8 +12,13 @@ const signup = async (
   try {
     let user = await User.findOne({ email });
     if (user) {
-      // return res.status(400).json({ errors: [{ msg: "User already exists" }] });
-      throw boomify(400, "User already exist.");
+      console.log(user);
+      return res.status(400).json({
+        success: false,
+        statusCode: 400,
+        message: "User already exists",
+      });
+      // throw boomify(400, "User already exist.");
     }
 
     user = new User({
