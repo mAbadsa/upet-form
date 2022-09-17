@@ -25,7 +25,9 @@ const Register: FC = () => {
         },
       });
     } catch (err: any) {
+      console.log(err);
       const e: AxiosError = err.toJSON();
+      console.log(e);
       setError(e.message);
       setLoading(false);
     }

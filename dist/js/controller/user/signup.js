@@ -40,7 +40,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var User_1 = __importDefault(require("../../models/User"));
-var utils_1 = require("../../utils");
 var signup = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, firstName, lastName, phoneNumber, email, password, user, _user, error_1;
     return __generator(this, function (_b) {
@@ -54,8 +53,13 @@ var signup = function (req, res, next) { return __awaiter(void 0, void 0, void 0
             case 2:
                 user = _b.sent();
                 if (user) {
-                    // return res.status(400).json({ errors: [{ msg: "User already exists" }] });
-                    throw (0, utils_1.boomify)(400, "User already exist.");
+                    console.log(user);
+                    return [2 /*return*/, res.status(400).json({
+                            success: false,
+                            statusCode: 400,
+                            message: "User already exists",
+                        })];
+                    // throw boomify(400, "User already exist.");
                 }
                 user = new User_1.default({
                     firstName: firstName,
