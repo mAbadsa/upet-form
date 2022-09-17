@@ -15,7 +15,7 @@
     "project-setup": "yarn install && cd client && yarn install",
     "heroku-postbuild": "yarn install && cd client && yarn install && yarn run build",
     "test:unit": "ENV_FILE=./config/.env.test jest",
-    "run-both":"yarn run dev && yarn run client"
+    "run-both":"yarn start && yarn run client"
   },
   "keywords": [],
   "license": "ISC",
