@@ -3,3 +3,7 @@ client/.storybook
 client/src/components/**/**.stories.tsx
 client/src/stories/*
 .env
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
