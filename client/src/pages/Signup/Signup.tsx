@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Axios, { AxiosResponse } from "axios";
+import Axios, { AxiosResponse, AxiosError } from "axios";
 
 import Alert from "@mui/material/Alert";
 
@@ -13,6 +13,7 @@ const Register: FC = () => {
   const navigate = useNavigate();
 
   const onFinish = async (userData: userDataType): Promise<void> => {
+    console.log(userData);
     try {
       setLoading(true);
       setError("");
@@ -24,10 +25,15 @@ const Register: FC = () => {
         },
       });
     } catch (err: any) {
-      setError(err);
+      console.log(err);
+      const e: AxiosError = err.toJSON();
+      console.log(e);
+      setError(e.message);
       setLoading(false);
     }
   };
+  console.log(error);
+
   return (
     <div>
       {error && <Alert severity="error">{error}</Alert>}
