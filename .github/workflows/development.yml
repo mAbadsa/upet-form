@@ -17,10 +17,10 @@ jobs:
     steps:
       - name: Development Code
         uses: actions/checkout@v2
-      - name: Use Node.js 14.x
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: Start MongoDB v${{ matrix.mongodb-version }}
         uses: supercharge/mongodb-github-action@1.2.0
         with:
